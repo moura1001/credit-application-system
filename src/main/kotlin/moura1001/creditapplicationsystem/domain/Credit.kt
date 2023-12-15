@@ -1,15 +1,19 @@
 package moura1001.creditapplicationsystem.domain
 
+import jakarta.persistence.*
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.util.UUID
 
-data class Credit (
-    val creditCode: UUID = UUID.randomUUID(),
-    val creditValue: BigDecimal = BigDecimal.ZERO,
-    val dayFirstInstallment: LocalDate,
-    val numberOfInstallments: Int = 0,
-    val status: Status = Status.IN_PROGRESS,
-    var customer: Customer? = null,
-    val customerId: Long? = null,
+@Entity
+@Table(name = "credits")
+data class Credit(
+    @Id val creditCode: UUID = UUID.randomUUID(),
+    @Column(nullable = false) val creditValue: BigDecimal = BigDecimal.ZERO,
+    @Column(nullable = false) val dayFirstInstallment: LocalDate,
+    @Column(nullable = false) val numberOfInstallments: Int = 0,
+    @Column(nullable = false) @Enumerated val status: Status = Status.IN_PROGRESS,
+    @ManyToOne(fetch = FetchType.LAZY) var customer: Customer? = null,
+    @Column(name = "customer_id", nullable = false, insertable = false, updatable = false)
+    var customerId: Long? = null,
 )
