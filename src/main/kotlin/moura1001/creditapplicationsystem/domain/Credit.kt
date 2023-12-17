@@ -10,7 +10,7 @@ import java.util.UUID
 data class Credit(
     @Id val creditCode: UUID = UUID.randomUUID(),
     @Column(nullable = false) val creditValue: BigDecimal = BigDecimal.ZERO,
-    @Column(nullable = false) val dayFirstInstallment: LocalDate,
+    @Column(nullable = false) val dayFirstInstallment: LocalDate = LocalDate.now().plusDays(30),
     @Column(nullable = false) val numberOfInstallments: Int = 0,
     @Column(nullable = false) @Enumerated val status: Status = Status.IN_PROGRESS,
     @ManyToOne(fetch = FetchType.LAZY) var customer: Customer? = null,
