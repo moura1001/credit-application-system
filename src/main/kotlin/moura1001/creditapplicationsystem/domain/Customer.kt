@@ -1,6 +1,7 @@
 package moura1001.creditapplicationsystem.domain
 
 import jakarta.persistence.*
+import java.math.BigDecimal
 
 @Entity
 @Table(name = "customers")
@@ -13,6 +14,7 @@ data class Customer(
     @Column(nullable = false, unique = true) var email: String = "",
     @Column(nullable = false) var password: String = "",
     @Column(nullable = false) @Embedded var address: Address = Address(),
+    @Column(nullable = false) var income: BigDecimal = BigDecimal.ZERO,
 
     @OneToMany(
         fetch = FetchType.LAZY,
