@@ -1,4 +1,4 @@
-package moura1001.creditapplicationsystem.dto.CustomerView
+package moura1001.creditapplicationsystem.dto
 
 import moura1001.creditapplicationsystem.domain.Customer
 import java.math.BigDecimal

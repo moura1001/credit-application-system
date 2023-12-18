@@ -13,7 +13,7 @@ data class Credit(
     @Column(nullable = false) val dayFirstInstallment: LocalDate = LocalDate.now().plusDays(30),
     @Column(nullable = false) val numberOfInstallments: Int = 0,
     @Column(nullable = false) @Enumerated val status: Status = Status.IN_PROGRESS,
-    @ManyToOne(fetch = FetchType.LAZY) var customer: Customer? = null,
+    @ManyToOne(fetch = FetchType.EAGER) var customer: Customer? = null,
     @Column(name = "customer_id", nullable = false, insertable = false, updatable = false)
     var customerId: Long? = null,
 )
