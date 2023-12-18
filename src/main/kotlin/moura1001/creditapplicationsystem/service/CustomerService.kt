@@ -1,6 +1,7 @@
 package moura1001.creditapplicationsystem.service
 
 import moura1001.creditapplicationsystem.domain.Customer
+import moura1001.creditapplicationsystem.exception.BusinessException
 import moura1001.creditapplicationsystem.repository.CustomerRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -16,12 +17,13 @@ class CustomerService(
 
     fun findById(id: Long): Customer {
         return this.customerRepository.findById(id).orElseThrow{
-            throw RuntimeException("customer $id not found")
+            throw BusinessException("customer $id not found")
         }
     }
 
     @Transactional(rollbackFor = [RuntimeException::class, Exception::class])
     fun delete(id: Long) {
-        this.customerRepository.deleteById(id)
+        val customer = this.findById(id)
+        this.customerRepository.delete(customer)
     }
 }

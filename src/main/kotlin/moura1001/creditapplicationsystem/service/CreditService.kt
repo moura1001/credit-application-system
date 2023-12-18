@@ -1,6 +1,7 @@
 package moura1001.creditapplicationsystem.service
 
 import moura1001.creditapplicationsystem.domain.Credit
+import moura1001.creditapplicationsystem.exception.BusinessException
 import moura1001.creditapplicationsystem.repository.CreditRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -25,7 +26,7 @@ class CreditService(
 
     fun findByCreditCode(customerId: Long, creditCode: UUID): Credit {
         return this.creditRepository.findByCustomerIdAndCreditCode(customerId, creditCode).orElseThrow{
-            throw RuntimeException("credit code $creditCode not found for customer $customerId")
+            throw BusinessException("credit code $creditCode not found for customer $customerId")
         }
     }
 }
