@@ -1,5 +1,6 @@
 package moura1001.creditapplicationsystem.controller
 
+import jakarta.validation.Valid
 import moura1001.creditapplicationsystem.dto.CreditViewList
 import moura1001.creditapplicationsystem.dto.CreditDto
 import moura1001.creditapplicationsystem.dto.CreditViewInfo
@@ -22,7 +23,7 @@ class CreditController(
     private val creditService: CreditService
 ) {
     @PostMapping
-    fun saveCustomer(@RequestBody creditDto: CreditDto): ResponseEntity<String> {
+    fun saveCustomer(@RequestBody @Valid creditDto: CreditDto): ResponseEntity<String> {
         val savedCredit = this.creditService.save(creditDto.toEntity())
         return ResponseEntity.created(
             URI.create("/api/credits/${savedCredit.creditCode}?customerId=${savedCredit.customer!!.id}")

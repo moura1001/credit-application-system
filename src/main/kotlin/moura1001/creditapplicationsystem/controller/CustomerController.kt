@@ -1,5 +1,6 @@
 package moura1001.creditapplicationsystem.controller
 
+import jakarta.validation.Valid
 import moura1001.creditapplicationsystem.dto.CustomerDto
 import moura1001.creditapplicationsystem.dto.CustomerUpdateDto
 import moura1001.creditapplicationsystem.dto.CustomerView
@@ -22,7 +23,7 @@ class CustomerController(
     private val customerService: CustomerService
 ) {
     @PostMapping
-    fun saveCustomer(@RequestBody customerDto: CustomerDto): ResponseEntity<String> {
+    fun saveCustomer(@RequestBody @Valid customerDto: CustomerDto): ResponseEntity<String> {
         val savedCustomer = this.customerService.save(customerDto.toEntity())
         return ResponseEntity.created(
             URI.create("/api/customers/${savedCustomer.id}")
@@ -45,7 +46,7 @@ class CustomerController(
     @PatchMapping
     fun updateCustomer(
         @RequestParam(value = "customerId") id: Long,
-        @RequestBody customerDto: CustomerUpdateDto
+        @RequestBody @Valid customerDto: CustomerUpdateDto
     ): ResponseEntity<CustomerView> {
         val customer = this.customerService.findById(id)
         val updatedCustomer = this.customerService.save(customerDto.toEntity(customer))

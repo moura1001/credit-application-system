@@ -1,15 +1,18 @@
 package moura1001.creditapplicationsystem.dto
 
+import jakarta.validation.constraints.NotEmpty
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.PositiveOrZero
 import moura1001.creditapplicationsystem.domain.Address
 import moura1001.creditapplicationsystem.domain.Customer
 import java.math.BigDecimal
 
 data class CustomerUpdateDto(
-    val firstName: String = "",
-    val lastName: String = "",
-    val zipCode: String = "",
-    val street: String = "",
-    val income: BigDecimal = BigDecimal.ZERO
+    @field:NotEmpty val firstName: String = "",
+    @field:NotEmpty val lastName: String = "",
+    @field:NotEmpty val zipCode: String = "",
+    @field:NotEmpty val street: String = "",
+    @field:NotNull @field:PositiveOrZero val income: BigDecimal = BigDecimal.ZERO
 ) {
     fun toEntity(customer: Customer): Customer {
         // validations
