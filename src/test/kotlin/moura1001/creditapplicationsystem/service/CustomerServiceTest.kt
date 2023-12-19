@@ -14,11 +14,9 @@ import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.jupiter.MockitoExtension
-import org.springframework.test.context.ActiveProfiles
 import java.math.BigDecimal
 import java.util.*
 
-@ActiveProfiles("test")
 @ExtendWith(MockitoExtension::class)
 class CustomerServiceTest {
     @Mock
