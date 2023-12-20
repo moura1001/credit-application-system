@@ -33,8 +33,8 @@ class CreditRepositoryTest {
     @BeforeEach
     fun setUp() {
         customer = testEntityManager.persist(EntityBuilder.buildCustomer())
-        credit1 = testEntityManager.persist(buildCredit(customer = customer))
-        credit2 = testEntityManager.persist(buildCredit(customer = customer))
+        credit1 = testEntityManager.persist(EntityBuilder.buildCredit(customer = customer))
+        credit2 = testEntityManager.persist(EntityBuilder.buildCredit(customer = customer))
     }
 
     @Test
@@ -68,16 +68,4 @@ class CreditRepositoryTest {
         assertThat(creditList.size).isEqualTo(2)
         assertThat(creditList).contains(credit1, credit2)
     }
-
-    private fun buildCredit(
-        creditValue: BigDecimal = BigDecimal.valueOf(5000.0),
-        dayFirstInstallment: LocalDate = LocalDate.now().plusDays(30),
-        numberOfInstallments: Int = 5,
-        customer: Customer
-    ) = Credit(
-        creditValue = creditValue,
-        dayFirstInstallment = dayFirstInstallment,
-        numberOfInstallments = numberOfInstallments,
-        customer = customer
-    )
 }
