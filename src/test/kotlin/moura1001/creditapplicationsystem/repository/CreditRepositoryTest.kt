@@ -1,8 +1,8 @@
 package moura1001.creditapplicationsystem.repository
 
-import moura1001.creditapplicationsystem.domain.Address
 import moura1001.creditapplicationsystem.domain.Credit
 import moura1001.creditapplicationsystem.domain.Customer
+import moura1001.creditapplicationsystem.utils.EntityBuilder
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
@@ -32,7 +32,7 @@ class CreditRepositoryTest {
 
     @BeforeEach
     fun setUp() {
-        customer = testEntityManager.persist(buildCustomer())
+        customer = testEntityManager.persist(EntityBuilder.buildCustomer())
         credit1 = testEntityManager.persist(buildCredit(customer = customer))
         credit2 = testEntityManager.persist(buildCredit(customer = customer))
     }
@@ -79,24 +79,5 @@ class CreditRepositoryTest {
         dayFirstInstallment = dayFirstInstallment,
         numberOfInstallments = numberOfInstallments,
         customer = customer
-    )
-
-    private fun buildCustomer(
-        firstName: String = "First",
-        lastName: String = "Last",
-        cpf: String = "86155985090",
-        email: String = "email@gmail.com",
-        password: String = "1234",
-        zipCode: String = "11222333",
-        street: String = "Logo ali",
-        income: BigDecimal = BigDecimal.ZERO,
-    ) = Customer(
-        firstName = firstName,
-        lastName = lastName,
-        cpf = cpf,
-        email = email,
-        password = password,
-        address = Address(zipCode = zipCode, street = street),
-        income = income
     )
 }

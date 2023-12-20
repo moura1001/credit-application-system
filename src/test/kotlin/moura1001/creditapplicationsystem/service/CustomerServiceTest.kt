@@ -1,9 +1,9 @@
 package moura1001.creditapplicationsystem.service
 
-import moura1001.creditapplicationsystem.domain.Address
 import moura1001.creditapplicationsystem.domain.Customer
 import moura1001.creditapplicationsystem.exception.BusinessException
 import moura1001.creditapplicationsystem.repository.CustomerRepository
+import moura1001.creditapplicationsystem.utils.EntityBuilder
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatExceptionOfType
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
@@ -14,7 +14,6 @@ import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.jupiter.MockitoExtension
-import java.math.BigDecimal
 import java.util.*
 
 @ExtendWith(MockitoExtension::class)
@@ -28,7 +27,7 @@ class CustomerServiceTest {
     @Test
     fun `should create customer`() {
         // given
-        val fakeCustomer: Customer = buildCustomer()
+        val fakeCustomer: Customer = EntityBuilder.buildCustomer()
         Mockito.`when`(customerRepository.save(Mockito.any(Customer::class.java))).thenReturn(fakeCustomer)
 
         // when
@@ -44,7 +43,7 @@ class CustomerServiceTest {
     fun `should find customer by id`() {
         // given
         val fakeId = Random().nextLong()
-        val fakeCustomer: Customer = buildCustomer(id = fakeId)
+        val fakeCustomer: Customer = EntityBuilder.buildCustomer(id = fakeId)
         Mockito.`when`(customerRepository.findById(fakeId)).thenReturn(Optional.of(fakeCustomer))
 
         // when
@@ -74,7 +73,7 @@ class CustomerServiceTest {
     fun `should delete customer by id`() {
         // given
         val fakeId = Random().nextLong()
-        val fakeCustomer: Customer = buildCustomer(id = fakeId)
+        val fakeCustomer: Customer = EntityBuilder.buildCustomer(id = fakeId)
         Mockito.`when`(customerRepository.findById(fakeId)).thenReturn(Optional.of(fakeCustomer))
         Mockito.doNothing().`when`(customerRepository).delete(fakeCustomer)
 
@@ -82,25 +81,4 @@ class CustomerServiceTest {
         // then
         assertDoesNotThrow { customerService.delete(fakeId) }
     }
-
-    private fun buildCustomer(
-        id: Long = 1L,
-        firstName: String = "",
-        lastName: String = "",
-        cpf: String = "",
-        email: String = "",
-        password: String = "",
-        zipCode: String = "",
-        street: String = "",
-        income: BigDecimal = BigDecimal.ZERO,
-    ) = Customer(
-        id = id,
-        firstName = firstName,
-        lastName = lastName,
-        cpf = cpf,
-        email = email,
-        password = password,
-        address = Address(zipCode = zipCode, street = street),
-        income = income
-    )
 }
